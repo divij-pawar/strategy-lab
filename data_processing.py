@@ -10,18 +10,23 @@ def fetch_stock_data(ticker, period='1mo', interval='1d'):
 
 def calculate_indicators(df):
     """Calculate technical indicators for the given dataframe."""
+    # Make sure Close is a Series, not a DataFrame or ndarray
+    close_series = df['Close']
+    if hasattr(close_series, 'values') and len(close_series.values.shape) > 1:
+        close_series = pd.Series(close_series.values.flatten(), index=df.index)
+    
     # Simple Moving Averages
-    df['SMA50'] = ta.trend.sma_indicator(df['Close'], window=50)
-    df['SMA200'] = ta.trend.sma_indicator(df['Close'], window=200)
+    df['SMA50'] = ta.trend.sma_indicator(close_series, window=50)
+    df['SMA200'] = ta.trend.sma_indicator(close_series, window=200)
     
     # Exponential Moving Average
-    df['EMA20'] = ta.trend.ema_indicator(df['Close'], window=20)
+    df['EMA20'] = ta.trend.ema_indicator(close_series, window=20)
     
     # RSI
-    df['RSI'] = ta.momentum.RSIIndicator(df['Close']).rsi()
+    df['RSI'] = ta.momentum.RSIIndicator(close_series).rsi()
     
     # MACD
-    macd = ta.trend.MACD(df['Close'])
+    macd = ta.trend.MACD(close_series)
     df['MACD'] = macd.macd()
     df['MACD_signal'] = macd.macd_signal()
     df['MACD_hist'] = macd.macd_diff()
@@ -30,19 +35,24 @@ def calculate_indicators(df):
 
 def backtest_sma_strategy(df):
     """Simple SMA crossover strategy backtest."""
-    df['Signal'] = 0
-    df['Signal'][df['SMA50'] > df['SMA200']] = 1
-    df['Position'] = df['Signal'].diff()
+    # Create a copy of the dataframe to avoid SettingWithCopyWarning
+    result_df = df.copy()
+    
+    # Initialize Signal column
+    result_df['Signal'] = 0
+    # Set signal based on SMA crossover
+    result_df.loc[result_df['SMA50'] > result_df['SMA200'], 'Signal'] = 1
+    result_df['Position'] = result_df['Signal'].diff()
     
     # Calculate returns
-    df['Returns'] = df['Close'].pct_change()
-    df['Strategy_Returns'] = df['Returns'] * df['Signal'].shift(1)
+    result_df['Returns'] = result_df['Close'].pct_change()
+    result_df['Strategy_Returns'] = result_df['Returns'] * result_df['Signal'].shift(1)
     
     # Calculate cumulative returns
-    df['Cum_Returns'] = (1 + df['Returns']).cumprod()
-    df['Cum_Strategy_Returns'] = (1 + df['Strategy_Returns']).cumprod()
+    result_df['Cum_Returns'] = (1 + result_df['Returns']).cumprod()
+    result_df['Cum_Strategy_Returns'] = (1 + result_df['Strategy_Returns']).cumprod()
     
-    return df
+    return result_df
 
 def generate_signals(df, threshold=None):
     """Generate trading signals and alerts based on indicators."""
