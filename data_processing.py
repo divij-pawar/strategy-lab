@@ -2,9 +2,38 @@ import yfinance as yf
 import pandas as pd
 import ta
 
-def fetch_stock_data(ticker, period='1mo', interval='1d'):
-    """Fetch stock data from Yahoo Finance."""
-    df = yf.download(ticker, period=period, interval=interval)
+def fetch_stock_data(ticker, interval='1d', period=None):
+    """
+    Fetch stock data from Yahoo Finance with automatic period adjustment based on interval.
+
+    Args:
+        ticker (str): Stock ticker symbol.
+        interval (str): Interval of data points (e.g., '1m', '5m', '15m', '1d').
+        period (str, optional): Period to fetch. If None, defaults will be used based on interval.
+
+    Returns:
+        DataFrame: Cleaned stock data.
+    """
+    valid_intervals = {
+        '1m':  '7d',
+        '2m':  '60d',
+        '5m':  '60d',
+        '15m': '60d',
+        '30m': '60d',
+        '60m': '60d',
+        '90m': '60d',
+        '1d':  '1y',
+        '1wk': '5y',
+        '1mo': '10y'
+    }
+
+    if interval not in valid_intervals:
+        raise ValueError(f"Invalid interval '{interval}'. Must be one of: {list(valid_intervals.keys())}")
+
+    if period is None:
+        period = valid_intervals[interval]
+
+    df = yf.download(ticker, period=period, interval=interval, progress=False)
     df.dropna(inplace=True)
     return df
 
