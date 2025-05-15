@@ -1,0 +1,16 @@
+# Stock Dashboard - Required Packages
+
+# Core packages
+dash==2.9.3
+plotly==5.14.1
+pandas==2.0.1
+numpy==1.24.3
+
+# Data acquisition
+yfinance==0.2.18
+
+# Technical analysis
+ta==0.10.2
+
+# For deployment (optional)
+gunicorn==20.1.0
