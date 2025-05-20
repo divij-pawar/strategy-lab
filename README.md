@@ -1,6 +1,7 @@
-# Stock Dashboard - Modular Architecture
+# Strategy Lab - analyse markets
+![Frontend for the website](./store/frontend.png)
 
-This repository contains a modular implementation of a stock dashboard built with Dash. The application allows users to track stock prices, technical indicators, and portfolio performance in real-time.
+### A configurable lab to implement custom technical indicators and strategies.
 
 ## Features
 
