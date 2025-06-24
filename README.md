@@ -13,16 +13,53 @@
 
 ## Installation
 
-1. Clone the repository
-2. Create and activate a virtual environment (recommended)
-3. Install dependencies:
+### 1. Clone the repository
+```bash
+git clone https://github.com/divij-pawar/strategy-lab.git
+cd strategy-lab
+```
+
+### 2. Set up the backend (Python)
+
+It's recommended to use a virtual environment:
+
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
+```
+
+Install backend dependencies:
+
 ```bash
 pip install -r requirements.txt
 ```
-4. Run the application:
+
+Run the backend:
+
 ```bash
 python app.py
 ```
+
+### 3. Set up the frontend (Vite)
+
+Navigate to the `frontend/` directory:
+
+```bash
+cd frontend
+```
+
+Install frontend dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+This will launch the frontend on http://localhost:5173 by default.
 
 ## Usage
 
