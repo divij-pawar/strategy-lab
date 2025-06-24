@@ -1,7 +1,8 @@
-# Strategy Lab - analyse markets
+#  [Strategy Lab - analyse markets](https://strategy-lab.netlify.app/)
 ![Frontend for the website](./store/frontend.png)
 
 ### A configurable lab to implement custom technical indicators and strategies.
+Note: The backend is still under development. The live site currently showcases only the frontend interface.
 
 ## Features
 
