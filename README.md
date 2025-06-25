@@ -22,24 +22,24 @@ cd strategy-lab
 
 ### 2. Set up the backend (Python)
 
-It's recommended to use a virtual environment:
+Navigate to the `backend/` directory:
 
 ```bash
-python -m venv venv
-source venv/bin/activate  # On Windows use: venv\Scripts\activate
+cd backend
 ```
 
 Install backend dependencies:
 
 ```bash
-pip install -r requirements.txt
+npm install
 ```
 
-Run the backend:
+Start the backend server:
 
 ```bash
-python app.py
+npm start
 ```
+Server runs on http://localhost:5000.
 
 ### 3. Set up the frontend (Vite)
 
