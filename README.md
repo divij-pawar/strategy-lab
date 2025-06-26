@@ -4,7 +4,7 @@
 ### A configurable lab to implement custom technical indicators and strategies.
 Note: The backend is still under development. The live site currently showcases only the frontend interface.
 
-## Features
+## Features (TBA)
 
 - Real-time stock price tracking with automatic updates
 - Technical analysis with customizable indicators (SMA, EMA, RSI, MACD)
@@ -20,7 +20,7 @@ git clone https://github.com/divij-pawar/strategy-lab.git
 cd strategy-lab
 ```
 
-### 2. Set up the backend (Python)
+### 2. Set up the backend (node.js)
 
 Navigate to the `backend/` directory:
 
@@ -61,23 +61,6 @@ Start the development server:
 npm run dev
 ```
 This will launch the frontend on http://localhost:5173 by default.
-
-## Usage
-
-1. Select stocks from the dropdown menu
-2. Choose technical indicators to display
-3. Add stocks to your portfolio with buy price and quantity
-4. Set alert thresholds
-5. View backtest results for the SMA crossover strategy
-
-## Requirements
-
-- Python 3.8+
-- Dash
-- Plotly
-- Pandas
-- yfinance
-- TA-Lib
 
 ## License
 
